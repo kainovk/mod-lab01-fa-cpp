@@ -43,7 +43,6 @@ unsigned int faStr1(const char* str) {
 unsigned int faStr2(const char* str) {
     int count = 0;
     bool wordStarted = false;
-    bool validWord = false;
 
     while (*str != '\0') {
         if (isupper(*str) && !wordStarted) {
@@ -83,6 +82,5 @@ unsigned int faStr3(const char* str) {
     }
 
     double average = static_cast<double>(sum) / wordsCount;
-    int rounded = round(average);
-    return rounded;
+    return round(average);
 }
