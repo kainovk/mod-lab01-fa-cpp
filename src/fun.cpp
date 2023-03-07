@@ -1,7 +1,7 @@
 // Copyright 2022 UNN-IASR
 #include "fun.h"
+
 #include <iostream>
-#include <math.h>
 
 
 unsigned int faStr1(const char* str) {
@@ -79,7 +79,7 @@ unsigned int faStr3(const char* str) {
         return 0;
     }
 
-    double average = (double)sum / wordsCount;
+    double average = static_cast<double>(sum) / wordsCount;
     int rounded = round(average);
     return rounded;
 }
