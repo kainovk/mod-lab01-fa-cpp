@@ -1,29 +1,36 @@
 // Copyright 2022 UNN-IASR
 #include "fun.h"
-#include <cstring>
 #include <iostream>
 #include <math.h>
-
-using namespace std;
 
 
 unsigned int faStr1(const char* str) {
     int count = 0;
     int length = strlen(str);
     bool isWord = false;
+    bool numberAppeared = false;
 
     for (int i = 0; i < length; i++) {
         char current = str[i];
 
+        if (numberAppeared) {
+            if (current == ' ') {
+                numberAppeared = false;
+            }
+            continue;
+        }
+
         if (current >= '0' && current <= '9') {
             isWord = false;
-            break;
-        }
-        else {
+            numberAppeared = true;
+            continue;
+        } else if (current != ' ' && !numberAppeared) {
             isWord = true;
         }
         if ((current == ' ' || current == '\0') && isWord) {
             count++;
+            isWord = false;
+            numberAppeared = false;
         }
     }
 
@@ -38,12 +45,10 @@ unsigned int faStr2(const char* str) {
     while (*str != '\0') {
         if (isupper(*str) && !wordStarted) {
             wordStarted = true;
-        }
-        else if (*str == ' ' && wordStarted) {
+        } else if (*str == ' ' && wordStarted) {
             count++;
             wordStarted = false;
-        }
-        else if (!isalpha(*str) || !islower(*str)) {
+        } else if (!isalpha(*str) || !islower(*str)) {
             wordStarted = false;
         }
         str++;
@@ -63,10 +68,11 @@ unsigned int faStr3(const char* str) {
             inWord = true;
             wordsCount++;
         }
-        else if (str[i] == ' ') {
+        if (str[i] == ' ') {
             inWord = false;
+        } else {
+            sum++;
         }
-        sum++;
     }
 
     if (wordsCount == 0) {
